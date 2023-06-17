@@ -1,0 +1,226 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: Consola;
+  src: url(/fonts/CONSOLA.TTF);
+}
+
+:root {
+  --mons: "Montserrat", sans-serif;
+  --robo: "Roboto Mono", monospace;
+  --cons: "Consola", sans-serif;
+  --lato: "Lato", sans-serif;
+  --fj1: "Fjalla One", sans-serif;
+}
+
+body {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(235, 244, 246, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+
+@keyframes TransitioningBackground {
+  0% {
+    background-position: 1% 0%;
+  }
+  50% {
+    background-position: 99% 100%;
+  }
+  100% {
+    background-position: 1% 0%;
+  }
+}
+
+h1 {
+  font-size: 9vw;
+  font-weight: 700;
+  font-family: var(--fj1);
+  text-align: center;
+
+  background: linear-gradient(#440f0f, #493232);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media only screen and (min-device-width: 1024px) and (orientation: landscape) {
+  h1 {
+    font-size: 4vw;
+  }
+}
+
+.grid-container {
+  display: grid;
+  gap: 1em;
+  margin: auto;
+  width: 93%;
+}
+
+.grid-item {
+  /* to center text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: var(--cons);
+  font-size: 8vw;
+  font-weight: 600;
+
+  border: 3px solid #242424;
+  box-shadow: 2px 2px black;
+  border-radius: 10px;
+  padding: 10% 10%;
+
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: -1px;
+
+  /* // for shine & gradient effects to work */
+  position: relative;
+  overflow: hidden;
+  background-size: 400% 400%;
+  animation: TransitioningBackground 10s ease infinite;
+  transition: 0.6s;
+
+  /* // psuedo-element shine animation left side */
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    width: 60px;
+    height: 100%;
+    top: 0;
+    filter: blur(30px);
+    transform: translateX(-500px) skewX(-30deg);
+  }
+
+  /* // psuedo-element shine animation right side */
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    width: 30px;
+    height: 100%;
+    top: 0;
+    filter: blur(5px);
+    transform: translateX(-500px) skewX(-30deg);
+  }
+
+  &:hover {
+    transform: translateY(-0.2em);
+    cursor: pointer;
+    transition: 0.9s;
+
+    /* // psuedo-elements for right- and left-side shine animations */
+    &::before,
+    &::after {
+      transform: translateX(500px) skewX(-15deg);
+      transition: 0.5s;
+    }
+  }
+}
+
+.grid-item:nth-child(1) {
+  background-color: rgb(9, 154, 151);
+  background-image: linear-gradient(110.7deg, rgb(9, 154, 151) 6.3%, rgb(20, 180, 148) 90.6%);
+}
+
+.grid-item:nth-child(1) span {
+  color: #F2BE22;
+}
+
+
+.grid-item:nth-child(2) {
+  background-color: #eec0c6;
+  background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 74%);
+}
+
+.grid-item:nth-child(2) span {
+  color: #b32660;
+}
+
+.grid-item:nth-child(3) {
+  background-color: #08e1ae;
+  background-image: linear-gradient(315deg, #08e1ae 0%, #98de5b 74%);
+}
+
+.grid-item:nth-child(3) span {
+  background: linear-gradient(#7b52ae, #653496);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.grid-item:nth-child(4) {
+  background-color: #3f0d12;
+  background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+}
+
+.grid-item:nth-child(4) span {
+  background: linear-gradient(#f5e59f, #dfc470);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grid-item:nth-child(5) {
+  background-color: #ef5734;
+  background-image: linear-gradient(315deg, #ef5734 0%, #ffcc2f 74%);
+}
+
+.grid-item:nth-child(5) span {
+  background: linear-gradient(#352c2c, #000000);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.grid-item:last-child {
+  background-color: #1a1515;
+  background-image: linear-gradient(315deg, #2c1a1a 0%, #472416 74%);}
+
+.grid-item:last-child span {
+  color: #ca9c73;
+}
+
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  .grid-container {
+    width: 85%;
+  }
+
+  .grid-item {
+    font-size: 6vw;
+    padding: 1em 0;
+  }
+}
+
+@media (orientation: landscape) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-item {
+    font-size: 3em;
+    padding: 1em 0;
+  }
+
+  .grid-item:nth-child(1) {
+    grid-row: span 2;
+  }
+
+  .grid-item:nth-child(4),
+  .grid-item:nth-child(5) {
+    grid-column: span 2;
+  }
+}
