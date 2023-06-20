@@ -32,12 +32,24 @@ def selectionSort(nums):
             nums[i], nums[minIdx] = nums[minIdx], nums[i]
     return nums
 
+def countingSort(nums, max):
+    count = [0 for _ in range(max)]
+    for n in nums:
+        count[n] += 1
+    for i in range(1, max):
+        count[i] += count[i-1]
+    res = [0] * len(nums)
+    for n in nums:
+        res[count[n]-1] = n
+        count[n] -= 1
+    return res
 
 
 lst = [2,8,5,3,9,4,1]
 print(bubbleSort(lst))
 print(insertionSort(lst))
 print(selectionSort(lst))
+print(countingSort(lst, 310))
 # [2,8,5,3,9,4,1]
 # [2, 5, 3, 8, 4, 1, 9]
 # [2, 3, 5, 4, 1, 8, 9]

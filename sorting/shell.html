@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Selection Sort Visualizer</title>
-    <script>
+    <title>Shell Sort Visualizer</title>
+      <script>
       var barHeight;
       var size;
       if (
@@ -32,17 +32,21 @@
     />
     <style>
       body {
-        background-color: #1a1515;
-        background-image: linear-gradient(315deg, #2c1a1a 0%, #472416 74%);
+        background-color: rgb(9, 154, 151);
+        background-image: linear-gradient(
+          110.7deg,
+          rgb(9, 154, 151) 6.3%,
+          rgb(20, 180, 148) 90.6%
+        );
       }
 
       h1,
       a {
-        color: #ca9c73;
+        color: #f2be22;
       }
 
       a:hover {
-        color: #cea785;
+        color: #fcd358;
       }
     </style>
     <script
@@ -57,7 +61,7 @@
       </a>
     </nav>
     <main>
-      <h1>Selection Sort Visualizer</h1>
+      <h1>Shell Sort Visualizer</h1>
       <div class="sorter">
         <div class="controls">
           <div class="speed-input">
@@ -82,7 +86,7 @@
 
     <script src="../scripts/sort.js"></script>
     <script>
-      sortType = "selection";
+      sortType = "shell";
     </script>
   </body>
 </html>

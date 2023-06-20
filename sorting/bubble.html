@@ -2,10 +2,33 @@
 <html>
   <head>
     <title>Bubble Sort Visualizer</title>
+    <script>
+      var barHeight;
+      var size;
+      if (
+        window.matchMedia("(max-width: 768px) and (orientation: portrait)")
+          .matches
+      ) {
+        barHeight = 700;
+        size = 35;
+      } else if (
+        window.matchMedia("(max-width: 1024px) and (orientation: portrait)")
+          .matches
+      ) {
+        barHeight = 500;
+        size = 40;
+      } else {
+        barHeight = 300;
+        size = 50;
+      }
+    </script>
     <link rel="stylesheet" href="../styles/sort.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;500&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;500&family=Roboto+Mono&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
         background-color: #3f0d12;
@@ -19,43 +42,52 @@
         -webkit-text-fill-color: transparent;
       }
 
-      a{
+      a {
         color: #dfc470;
       }
-      
-      a:hover{
+
+      a:hover {
         color: #f8db84;
       }
     </style>
-      <script src="https://kit.fontawesome.com/69a55823e5.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/69a55823e5.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <nav>
       <a href="/index.html">
-      <i class="fa-solid fa-house fa-xl"></i>
+        <i class="fa-solid fa-house fa-xl"></i>
       </a>
     </nav>
     <main>
-    <h1>Bubble Sort Visualizer</h1>
-    <div class="sorter">
-      <div class="controls">
-        <div class="inputs">
-          <input id="speed" type="number" placeholder="Enter Speed" min="1" max="100">
-          <span>ms</span>
+      <h1>Bubble Sort Visualizer</h1>
+      <div class="sorter">
+        <div class="controls">
+          <div class="speed-input">
+            <input
+              id="speed"
+              type="number"
+              placeholder="Enter Speed"
+              min="1"
+              max="100"
+            />
+            <span>ms</span>
+          </div>
+          <input id="size" type="number" placeholder="Enter Size" />
+          <button id="sort">Start Sorting</button>
         </div>
-        <input id="size" type="number" placeholder="Enter Size">
-        <button id="sort">Start Sorting</button>
+        <div id="bars-container"></div>
+        <div>
+          <button id="reset">Reset</button>
+        </div>
       </div>
-      <div id="bars-container"></div>
-      <div>
-        <button id="reset">Reset</button>
-      </div>
-    </div>
     </main>
-  
+
     <script src="../scripts/sort.js"></script>
     <script>
-      sortType = 'bubble';
+      sortType = "bubble";
     </script>
   </body>
 </html>

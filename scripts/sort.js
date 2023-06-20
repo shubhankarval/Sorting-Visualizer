@@ -1,7 +1,6 @@
 // Global variables
 var barsContainer = document.getElementById("bars-container");
 var bars = [];
-var size = 50;
 var speed = 50;
 var sortType;
 
@@ -16,9 +15,9 @@ function generateRandomData(size) {
   barsContainer.innerHTML = "";
 
   for (var i = 0; i < size; i++) {
-    var barHeight = Math.floor(Math.random() * 300) + 10;
+    var _barHeight = Math.floor(Math.random() * barHeight) + 10;
     var bar = document.createElement("div");
-    bar.style.height = barHeight + "px";
+    bar.style.height = _barHeight + "px";
     bar.className = "bar";
     barsContainer.appendChild(bar);
     bars.push(bar);
@@ -33,26 +32,33 @@ sort.addEventListener("click", function () {
   if (speedField.value) {
     speed = parseInt(speedField.value);
   }
+  else{
+    speed = 50;
+  }
 
   if (sizeField.value) {
     size = parseInt(sizeField.value);
     generateRandomData(size);
     setTimeout(sortSelector, 500);
-  }
-
-  else{
+  } else {
+    size = 50;
     sortSelector();
   }
-
 });
 
-function sortSelector(){
+function sortSelector() {
   if (sortType == "bubble") {
     bubbleSort(speed);
   } else if (sortType == "insertion") {
     insertionSort(speed);
   } else if (sortType == "selection") {
     selectionSort(speed);
+  } else if (sortType == "shell") {
+    shellSort(speed);
+  } else if (sortType == "cycle") {
+    cycleSort(speed);
+  } else{
+    combSort(speed)
   }
 }
 
@@ -62,6 +68,12 @@ reset.addEventListener("click", function () {
 
 /*
 SORTING ALGORITHMS
+*/
+
+/*
+***********
+BUBBLE SORT
+***********
 */
 
 async function bubbleSort(speed) {
@@ -93,6 +105,12 @@ async function bubbleSort(speed) {
   }
   bars[0].style.backgroundColor = "#2ecc71";
 }
+
+/*
+**************
+INSERTION SORT
+**************
+*/
 
 async function insertionSort(speed) {
   for (var i = bars.length - 1; i >= 0; i--) {
@@ -132,6 +150,12 @@ async function insertionSort(speed) {
   }
 }
 
+/*
+**************
+SELECTION SORT
+**************
+*/
+
 async function selectionSort(speed) {
   for (var i = 0; i < bars.length - 1; i++) {
     var minIdx = i; // index of the smallest number
@@ -164,3 +188,177 @@ async function selectionSort(speed) {
   }
   bars[bars.length - 1].style.backgroundColor = "#2ecc71";
 }
+
+/*
+**********
+SHELL SORT
+**********
+*/
+
+async function shellSort(speed) {
+  var n = bars.length;
+  var gap = Math.floor(n / 2);
+
+  while (gap > 0) {
+    for (var i = gap; i < n; i++) {
+      var temp = bars[i].style.height;
+      var j = i;
+
+      while (j >= gap && bars[j - gap].clientHeight > parseInt(temp)) {
+        bars[j].style.backgroundColor = "#ff0000";
+        await new Promise((resolve) => setTimeout(resolve, speed));
+        bars[j - gap].style.backgroundColor = "#ff0000";
+        await new Promise((resolve) => setTimeout(resolve, speed));
+
+        bars[j].style.height = bars[j - gap].style.height;
+
+        bars[j].style.backgroundColor = "#3498db";
+        await new Promise((resolve) => setTimeout(resolve, speed));
+        bars[j - gap].style.backgroundColor = "#3498db";
+        
+        j -= gap;
+      }
+
+      bars[j].style.height = temp;
+    }
+
+    gap = Math.floor(gap / 2);
+  }
+
+  for (var i = bars.length - 1; i >= 0; i--) {
+    await new Promise((resolve) => setTimeout(resolve, speed));
+    bars[i].style.backgroundColor = "#2ecc71";
+  }
+
+}
+
+/*
+**********
+CYCLE SORT
+**********
+*/
+
+async function cycleSort(speed) {
+  var n = bars.length;
+
+  for (var cycleStart = 0; cycleStart < n - 1; cycleStart++) {
+    var itemHeight = bars[cycleStart].style.height;
+    var pos = cycleStart;
+
+    // Highlight the current element being considered
+    bars[cycleStart].style.backgroundColor = '#ff0000';
+    await new Promise((resolve) => setTimeout(resolve, speed));
+
+    for (var i = cycleStart + 1; i < n; i++) {
+      if (parseInt(bars[i].style.height) < parseInt(itemHeight)) {
+        pos++;
+      }
+    }
+
+    if (pos === cycleStart) {
+      // Reset the color of the current element
+      bars[cycleStart].style.backgroundColor = '#2ecc71';
+      await new Promise((resolve) => setTimeout(resolve, speed));
+      continue;
+    }
+
+    while (parseInt(itemHeight) === parseInt(bars[pos].style.height)) {
+      pos++;
+    }
+
+    // Swap the heights of the elements
+    var tempHeight = bars[pos].style.height;
+    bars[pos].style.height = itemHeight;
+    itemHeight = tempHeight;
+
+    // Swap the colors of the elements
+    bars[cycleStart].style.backgroundColor = '#3498db';
+    await new Promise((resolve) => setTimeout(resolve, speed));
+    bars[pos].style.backgroundColor = '#ff0000';
+    await new Promise((resolve) => setTimeout(resolve, speed));
+
+    while (pos !== cycleStart) {
+      pos = cycleStart;
+
+      for (var i = cycleStart + 1; i < n; i++) {
+        if (parseInt(bars[i].style.height) < parseInt(itemHeight)) {
+          pos++;
+        }
+      }
+
+      while (parseInt(itemHeight) === parseInt(bars[pos].style.height)) {
+        pos++;
+      }
+
+      // Swap the heights of the elements
+      var tempHeight = bars[pos].style.height;
+      bars[pos].style.height = itemHeight;
+      itemHeight = tempHeight;
+
+      // Swap the colors of the elements
+      bars[cycleStart].style.backgroundColor = '#3498db';
+      await new Promise((resolve) => setTimeout(resolve, speed));
+      bars[pos].style.backgroundColor = '#ff0000';
+      await new Promise((resolve) => setTimeout(resolve, speed));
+    }
+  }
+
+  // Color the elements in the sorted position with #2ecc71
+  for (var i = 0; i < n; i++) {
+    await new Promise((resolve) => setTimeout(resolve, speed));
+    bars[i].style.backgroundColor = '#2ecc71';
+  }
+}
+
+
+/*
+*********
+COMB SORT
+*********
+*/
+
+async function combSort(speed) {
+  var n = bars.length;
+  var gap = n;
+  var swapped = true;
+
+  while (gap > 1 || swapped) {
+    gap = getNextGap(gap);
+    swapped = false;
+
+    for (var i = 0; i < n - gap; i++) {
+      var j = i + gap;
+
+      if (parseInt(bars[i].style.height) > parseInt(bars[j].style.height)) {
+        // Highlight the swapped elements
+        bars[i].style.backgroundColor = '#ff0000';
+        bars[j].style.backgroundColor = '#ff0000';
+        await new Promise((resolve) => setTimeout(resolve, speed));
+
+        // Swap the heights of the elements
+        var tempHeight = bars[i].style.height;
+        bars[i].style.height = bars[j].style.height;
+        bars[j].style.height = tempHeight;
+
+        swapped = true;
+
+        // Reset the color of the swapped elements
+        bars[i].style.backgroundColor = '#3498db';
+        bars[j].style.backgroundColor = '#3498db';
+      }
+    }
+  }
+
+  // Color the elements in the sorted position with #2ecc71
+  for (var i = 0; i < n; i++) {
+    await new Promise((resolve) => setTimeout(resolve, speed));
+    bars[i].style.backgroundColor = '#2ecc71';
+  }
+}
+
+function getNextGap(gap) {
+  gap = Math.floor((gap * 10) / 13);
+  return Math.max(gap, 1);
+}
+
+

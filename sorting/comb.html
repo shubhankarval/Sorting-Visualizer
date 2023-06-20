@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Selection Sort Visualizer</title>
-    <script>
+    <title>Comb Sort Visualizer</title>
+        <script>
       var barHeight;
       var size;
       if (
@@ -32,17 +32,22 @@
     />
     <style>
       body {
-        background-color: #1a1515;
-        background-image: linear-gradient(315deg, #2c1a1a 0%, #472416 74%);
+        background-color: #08e1ae;
+        background-image: linear-gradient(315deg, #08e1ae 0%, #98de5b 74%);
       }
 
-      h1,
+      h1 {
+        background: linear-gradient(#7b52ae, #653496);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
       a {
-        color: #ca9c73;
+        color: #653496;
       }
 
       a:hover {
-        color: #cea785;
+        color: #7947aa;
       }
     </style>
     <script
@@ -57,7 +62,7 @@
       </a>
     </nav>
     <main>
-      <h1>Selection Sort Visualizer</h1>
+      <h1>Comb Sort Visualizer</h1>
       <div class="sorter">
         <div class="controls">
           <div class="speed-input">
@@ -82,7 +87,7 @@
 
     <script src="../scripts/sort.js"></script>
     <script>
-      sortType = "selection";
+      sortType = "comb";
     </script>
   </body>
 </html>

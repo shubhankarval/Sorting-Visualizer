@@ -2,6 +2,27 @@
 <html>
   <head>
     <title>Insertion Sort Visualizer</title>
+      <script>
+      var barHeight;
+      var size;
+      if (
+        window.matchMedia("(max-width: 768px) and (orientation: portrait)")
+          .matches
+      ) {
+        barHeight = 700;
+        size = 35;
+      } else if (
+        window.matchMedia("(max-width: 1024px) and (orientation: portrait)")
+          .matches
+      ) {
+        barHeight = 500;
+        size = 40;
+      } else {
+        barHeight = 300;
+        size = 50;
+      }
+    </script>
+
     <link rel="stylesheet" href="../styles/sort.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,7 +66,7 @@
       <h1>Insertion Sort Visualizer</h1>
       <div class="sorter">
         <div class="controls">
-          <div class="inputs">
+          <div class="speed-input">
             <input
               id="speed"
               type="number"
