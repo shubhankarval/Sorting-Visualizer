@@ -9,6 +9,30 @@ const sizeField = document.getElementById("size");
 const speedField = document.getElementById("speed");
 const reset = document.getElementById("reset");
 
+var barHeight;
+var size;
+
+function updateVariables() {
+  if (
+    window.matchMedia("(max-width: 768px) and (orientation: portrait)").matches
+  ) {
+    barHeight = 700;
+    size = 35;
+  } else if (
+    window.matchMedia("(max-width: 1024px) and (orientation: portrait)").matches
+  ) {
+    barHeight = 500;
+    size = 40;
+  } else {
+    barHeight = 300;
+    size = 50;
+  }
+}
+
+updateVariables();
+window.addEventListener("resize", updateVariables);
+
+
 // Generate random data for bars
 function generateRandomData(size) {
   bars = [];
@@ -25,8 +49,9 @@ function generateRandomData(size) {
 }
 
 window.onload = () => {
-  generateRandomData(size);
-};
+    generateRandomData(size);
+  };
+
 
 sort.addEventListener("click", function () {
   if (speedField.value) {

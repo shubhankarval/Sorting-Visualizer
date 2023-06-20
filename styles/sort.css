@@ -212,7 +212,7 @@ body {
     #bars-container {
       transform: scaleY(-1) rotate(-90deg) ;
       height: 45vh;
-      align-self: flex-start;
+      margin-left: -3.5em;
     }
     
     .bar {
