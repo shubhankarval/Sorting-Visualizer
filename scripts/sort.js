@@ -14,15 +14,20 @@ var size;
 
 function updateVariables() {
   if (
-    window.matchMedia("(max-width: 768px) and (orientation: portrait)").matches
+    window.matchMedia("(max-width: 530px) and (orientation: portrait)").matches
   ) {
     barHeight = 700;
-    size = 35;
+    size = 25;
+  } else if (
+    window.matchMedia("(max-width: 768px) and (orientation: portrait)").matches
+  ) {
+    barHeight = 600;
+    size = 30;
   } else if (
     window.matchMedia("(max-width: 1024px) and (orientation: portrait)").matches
   ) {
     barHeight = 500;
-    size = 40;
+    size = 35;
   } else {
     barHeight = 300;
     size = 50;
@@ -30,7 +35,11 @@ function updateVariables() {
 }
 
 updateVariables();
-window.addEventListener("resize", updateVariables);
+
+window.addEventListener("resize", function(){
+  updateVariables();
+  generateRandomData(size);
+});
 
 
 // Generate random data for bars
@@ -83,7 +92,7 @@ function sortSelector() {
   } else if (sortType == "cycle") {
     cycleSort(speed);
   } else{
-    combSort(speed)
+    combSort(speed);
   }
 }
 
@@ -220,55 +229,13 @@ SHELL SORT
 **********
 */
 
-async function shellSort(speed) {
-  var n = bars.length;
-  var gap = Math.floor(n / 2);
-
-  while (gap > 0) {
-    for (var i = gap; i < n; i++) {
-      var temp = bars[i].style.height;
-      var j = i;
-
-      while (j >= gap && bars[j - gap].clientHeight > parseInt(temp)) {
-        bars[j].style.backgroundColor = "#ff0000";
-        await new Promise((resolve) => setTimeout(resolve, speed));
-        bars[j - gap].style.backgroundColor = "#ff0000";
-        await new Promise((resolve) => setTimeout(resolve, speed));
-
-        bars[j].style.height = bars[j - gap].style.height;
-
-        bars[j].style.backgroundColor = "#3498db";
-        await new Promise((resolve) => setTimeout(resolve, speed));
-        bars[j - gap].style.backgroundColor = "#3498db";
-        
-        j -= gap;
-      }
-
-      bars[j].style.height = temp;
-    }
-
-    gap = Math.floor(gap / 2);
-  }
-
-  for (var i = bars.length - 1; i >= 0; i--) {
-    await new Promise((resolve) => setTimeout(resolve, speed));
-    bars[i].style.backgroundColor = "#2ecc71";
-  }
-
-}
-
-/*
-**********
-CYCLE SORT
-**********
-*/
-
 async function cycleSort(speed) {
   var n = bars.length;
 
   for (var cycleStart = 0; cycleStart < n - 1; cycleStart++) {
     var itemHeight = bars[cycleStart].style.height;
     var pos = cycleStart;
+    var isFinalPosition = false;
 
     // Highlight the current element being considered
     bars[cycleStart].style.backgroundColor = '#ff0000';
@@ -283,38 +250,15 @@ async function cycleSort(speed) {
     if (pos === cycleStart) {
       // Reset the color of the current element
       bars[cycleStart].style.backgroundColor = '#2ecc71';
+      isFinalPosition = true;
       await new Promise((resolve) => setTimeout(resolve, speed));
-      continue;
     }
 
     while (parseInt(itemHeight) === parseInt(bars[pos].style.height)) {
       pos++;
     }
 
-    // Swap the heights of the elements
-    var tempHeight = bars[pos].style.height;
-    bars[pos].style.height = itemHeight;
-    itemHeight = tempHeight;
-
-    // Swap the colors of the elements
-    bars[cycleStart].style.backgroundColor = '#3498db';
-    await new Promise((resolve) => setTimeout(resolve, speed));
-    bars[pos].style.backgroundColor = '#ff0000';
-    await new Promise((resolve) => setTimeout(resolve, speed));
-
-    while (pos !== cycleStart) {
-      pos = cycleStart;
-
-      for (var i = cycleStart + 1; i < n; i++) {
-        if (parseInt(bars[i].style.height) < parseInt(itemHeight)) {
-          pos++;
-        }
-      }
-
-      while (parseInt(itemHeight) === parseInt(bars[pos].style.height)) {
-        pos++;
-      }
-
+    if (!isFinalPosition) {
       // Swap the heights of the elements
       var tempHeight = bars[pos].style.height;
       bars[pos].style.height = itemHeight;
@@ -322,17 +266,38 @@ async function cycleSort(speed) {
 
       // Swap the colors of the elements
       bars[cycleStart].style.backgroundColor = '#3498db';
-      await new Promise((resolve) => setTimeout(resolve, speed));
       bars[pos].style.backgroundColor = '#ff0000';
       await new Promise((resolve) => setTimeout(resolve, speed));
-    }
-  }
 
-  // Color the elements in the sorted position with #2ecc71
-  for (var i = 0; i < n; i++) {
+      while (pos !== cycleStart) {
+        pos = cycleStart;
+
+        for (var i = cycleStart + 1; i < n; i++) {
+          if (parseInt(bars[i].style.height) < parseInt(itemHeight)) {
+            pos++;
+          }
+        }
+
+        while (parseInt(itemHeight) === parseInt(bars[pos].style.height)) {
+          pos++;
+        }
+
+        // Swap the heights of the elements
+        var tempHeight = bars[pos].style.height;
+        bars[pos].style.height = itemHeight;
+        itemHeight = tempHeight;
+
+        // Swap the colors of the elements
+        bars[cycleStart].style.backgroundColor = '#ff0000';
+        bars[pos].style.backgroundColor = '#3498db';
+        await new Promise((resolve) => setTimeout(resolve, speed));
+      }
+    }
+    // Highlight the elements in their final position with green color
+    bars[cycleStart].style.backgroundColor = '#2ecc71';
     await new Promise((resolve) => setTimeout(resolve, speed));
-    bars[i].style.backgroundColor = '#2ecc71';
   }
+  bars[n-1].style.backgroundColor = '#2ecc71';
 }
 
 
@@ -357,6 +322,7 @@ async function combSort(speed) {
       if (parseInt(bars[i].style.height) > parseInt(bars[j].style.height)) {
         // Highlight the swapped elements
         bars[i].style.backgroundColor = '#ff0000';
+        await new Promise((resolve) => setTimeout(resolve, speed));
         bars[j].style.backgroundColor = '#ff0000';
         await new Promise((resolve) => setTimeout(resolve, speed));
 
@@ -369,7 +335,9 @@ async function combSort(speed) {
 
         // Reset the color of the swapped elements
         bars[i].style.backgroundColor = '#3498db';
+        await new Promise((resolve) => setTimeout(resolve, speed));
         bars[j].style.backgroundColor = '#3498db';
+        await new Promise((resolve) => setTimeout(resolve, speed));
       }
     }
   }

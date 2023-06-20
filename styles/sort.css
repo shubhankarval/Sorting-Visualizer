@@ -221,10 +221,7 @@ body {
     }  
   }
 
-  @media only screen and (min-device-width: 320px) and (max-device-width: 768px) and (orientation: portrait) {
-    #bars-container {
-      align-self: normal;
-    }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 530px) and (orientation: portrait) {
 
     .bar {
       margin: 0 2px;
@@ -233,3 +230,11 @@ body {
 
   }
   
+  @media only screen and (min-device-width: 531px) and (max-device-width: 768px) and (orientation: portrait) {
+
+    .bar {
+      margin: 0 2px;
+      width: 15px;
+    }
+
+  }

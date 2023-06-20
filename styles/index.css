@@ -7,6 +7,12 @@
   src: url(/fonts/CONSOLA.TTF);
 }
 
+::selection {
+  color: #f7f7f7;
+  background-color: #461c1c;
+  -webkit-text-fill-color: currentColor;
+}
+
 :root {
   --mons: "Montserrat", sans-serif;
   --robo: "Roboto Mono", monospace;
@@ -52,7 +58,7 @@ h1 {
 @media only screen and (min-device-width: 1024px) and (orientation: landscape) {
   h1 {
     font-size: 4vw;
-  }
+  }  
 }
 
 .grid-container {
@@ -130,13 +136,16 @@ h1 {
 
 .grid-item:nth-child(1) {
   background-color: rgb(9, 154, 151);
-  background-image: linear-gradient(110.7deg, rgb(9, 154, 151) 6.3%, rgb(20, 180, 148) 90.6%);
+  background-image: linear-gradient(
+    110.7deg,
+    rgb(9, 154, 151) 6.3%,
+    rgb(20, 180, 148) 90.6%
+  );
 }
 
 .grid-item:nth-child(1) span {
-  color: #F2BE22;
+  color: #f2be22;
 }
-
 
 .grid-item:nth-child(2) {
   background-color: #eec0c6;
@@ -158,7 +167,6 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 
 .grid-item:nth-child(4) {
   background-color: #3f0d12;
@@ -184,15 +192,14 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
-
 .grid-item:last-child {
   background-color: #1a1515;
-  background-image: linear-gradient(315deg, #2c1a1a 0%, #472416 74%);}
+  background-image: linear-gradient(315deg, #2c1a1a 0%, #472416 74%);
+}
 
 .grid-item:last-child span {
   color: #ca9c73;
 }
-
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
   .grid-container {
