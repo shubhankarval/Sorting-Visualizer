@@ -1,4 +1,6 @@
 # Sorting-Visualizer
+Check out the live demo of the Sorting Visualizer: [Sorting Visualizer](https://easy-sorting-visualizer.netlify.app/)
+
 This is a sorting visualizer web application built using HTML, CSS, and JavaScript. It allows you to visualize various sorting algorithms in action, including Bubble Sort, Insertion Sort, Selection Sort, Shell Sort, Cycle Sort, and Comb Sort. The visualizer provides an interactive way to understand how these sorting algorithms work by animating the sorting process in real-time.
 
 ## Features
