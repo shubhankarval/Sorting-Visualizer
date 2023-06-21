@@ -229,6 +229,42 @@ SHELL SORT
 **********
 */
 
+async function shellSort(speed) {
+  var n = bars.length;
+  var gap = Math.floor(n / 2);
+  while (gap > 0) {
+    for (var i = gap; i < n; i++) {
+      var temp = bars[i].style.height;
+      var j = i;
+      while (j >= gap && bars[j - gap].clientHeight > parseInt(temp)) {
+        bars[j].style.backgroundColor = "#ff0000";
+        await new Promise((resolve) => setTimeout(resolve, speed));
+        bars[j - gap].style.backgroundColor = "#ff0000";
+        await new Promise((resolve) => setTimeout(resolve, speed));
+        bars[j].style.height = bars[j - gap].style.height;
+        bars[j].style.backgroundColor = "#3498db";
+        await new Promise((resolve) => setTimeout(resolve, speed));
+        bars[j - gap].style.backgroundColor = "#3498db";
+        
+        j -= gap;
+      }
+      bars[j].style.height = temp;
+    }
+    gap = Math.floor(gap / 2);
+  }
+  for (var i = bars.length - 1; i >= 0; i--) {
+    await new Promise((resolve) => setTimeout(resolve, speed));
+    bars[i].style.backgroundColor = "#2ecc71";
+  }
+}
+
+
+/*
+**********
+CYCLE SORT
+**********
+*/
+
 async function cycleSort(speed) {
   var n = bars.length;
 
